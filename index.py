@@ -61,7 +61,63 @@ class Member:
         return True
 
 
+class Library:
 
+    def __init__(self) -> None:
+        self.books = []
+        self.members = []
 
+    def add_book(self, book: Book) -> bool:
+        self.books.append(book)
+        print("Book added successfully.")
+        return True
 
+    def register_member(self, member: Member) -> bool:
+        if member in self.members:
+            print("Member is already registered.")
+            return False
+        self.members.append(member)
+        print("Member registered successfully.")
+        return True
 
+    def find_member(self, member_id: str):
+        return next(
+            (member for member in self.members if member.member_id == member_id), None
+        )
+
+    def find_book(self, isbn: str):
+        return next((book for book in self.books if book.isbn == isbn), None)
+
+    def issue_book(self, member_id: str, isbn: str) -> bool:
+        member = self.find_member(member_id)
+        book = self.find_book(isbn)
+
+        if not member:
+            print("Member is not available.")
+            return False
+
+        if not book:
+            print("Book is not available.")
+            return False
+
+        if not member.borrow_book(book):
+            return False
+        
+        return True
+
+    def return_book(self, member_id: str, isbn: str) -> bool:
+        member = self.find_member(member_id)
+        book = self.find_book(isbn)
+
+        if not member:
+            print("Member is not available.")
+            return False
+
+        if not book:
+            print("Book is not available.")
+            return False
+
+        if not member.return_book(book):
+            return False
+
+        return True
