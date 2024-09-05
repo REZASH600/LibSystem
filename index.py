@@ -102,7 +102,6 @@ class Library:
 
         if not member.borrow_book(book):
             return False
-        
         return True
 
     def return_book(self, member_id: str, isbn: str) -> bool:
@@ -121,3 +120,26 @@ class Library:
             return False
 
         return True
+
+
+
+# ایجاد کتاب‌ها
+book1 = Book("1984", "جورج اورول", "1234567890")
+book2 = Book("کشتن مرغ مقلد", "هارپر لی", "0987654321")
+
+# ایجاد کتابخانه و اضافه کردن کتاب‌ها
+library = Library()
+library.add_book(book1)
+library.add_book(book2)
+
+# ثبت یک عضو
+member = Member("آلیس", "M001")
+library.register_member(member)
+
+# امانت دادن کتاب به عضو
+library.issue_book("M001", "1234567890")
+
+# بازگرداندن کتاب
+library.return_book("M001", "1234567890")
+
+# https://github.com/REZASH600/LibSystem
