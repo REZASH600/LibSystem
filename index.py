@@ -21,7 +21,7 @@ class Book:
         return False
 
     def return_book(self) -> bool:
-        
+
         if not self.available:
             self.available = True
             print(f"{self.title} has been returned successfully.")
@@ -29,4 +29,39 @@ class Book:
 
         print(f"{self.title} was not borrowed and cannot be returned.")
         return False
+
+
+class Member:
+    def __init__(self, name: str, member_id: str, borrowed_books=[]) -> None:
+        self.name = name
+        self.member_id = member_id
+        self.borrowed_books = borrowed_books
+
+    def __str__(self) -> str:
+        return f"Name:{self.name}, Id:{self.member_id}"
+
+    def borrow_book(self, book: Book) -> bool:
+
+        if not book.borrow():
+            return False
+
+        self.borrowed_books.append(book)
+        return True
+
+    def return_book(self, book: Book) -> bool:
+
+        if book not in self.borrowed_books:
+            print("You have not borrowed this book.")
+            return False
+
+        elif not book.return_book():
+            return False
+
+        self.borrowed_books.remove(book)
+        return True
+
+
+
+
+
 
